@@ -303,7 +303,7 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
 
       function spawnBubbles() {
         const container = document.querySelector(".bubbles");
-        const count = 100 + Math.floor(Math.random() * 80);
+        const count = 70 + Math.floor(Math.random() * 56);
 
         for (let i = 0; i < count; i++) {
           const el = document.createElement("span");
@@ -327,7 +327,7 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
       document
         .getElementById("cheers")
         .addEventListener("click", () => { playGlug(); spawnBubbles(); });
-      document.getElementById("headline").addEventListener("click", playGlug);
+
     </script>
   </body>
 </html>
