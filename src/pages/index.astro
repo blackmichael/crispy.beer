@@ -103,13 +103,21 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, sans-serif;
         background:
-          linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
-          url(/crispy.jpg) center center / cover no-repeat fixed;
+          linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08));
         color: #1c1c1c;
-        min-height: 100vh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
         overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: url(/crispy.jpg) center center / cover no-repeat;
       }
 
       main {
@@ -200,6 +208,8 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
         transition: transform 0.2s ease;
         filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
         width: min(200px, 55vw);
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
       }
 
       #cheers svg {
