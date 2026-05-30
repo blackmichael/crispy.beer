@@ -275,33 +275,6 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
     </style>
 
     <script>
-      let ctx = null;
-
-      function playGlug() {
-        try {
-          if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.type = "sine";
-          osc.frequency.setValueAtTime(400, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(
-            120,
-            ctx.currentTime + 0.15,
-          );
-          gain.gain.setValueAtTime(0.2, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(
-            0.01,
-            ctx.currentTime + 0.2,
-          );
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.2);
-        } catch {
-          // audio not available, silently skip
-        }
-      }
-
       let sudsCount = 0;
       const MAX_SUDS = 500;
 
@@ -338,7 +311,7 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
 
       document
         .getElementById("cheers")
-        .addEventListener("click", () => { playGlug(); spawnBubbles(); });
+        .addEventListener("click", spawnBubbles);
 
     </script>
   </body>
