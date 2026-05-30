@@ -275,10 +275,11 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
     </style>
 
     <script>
+      let ctx = null;
+
       function playGlug() {
         try {
-          const ctx = new (window.AudioContext ||
-            window.webkitAudioContext)();
+          if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.connect(gain);
@@ -301,9 +302,17 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
         }
       }
 
+      let sudsCount = 0;
+      const MAX_SUDS = 500;
+
       function spawnBubbles() {
         const container = document.querySelector(".bubbles");
-        const count = 70 + Math.floor(Math.random() * 56);
+        let count = 70 + Math.floor(Math.random() * 56);
+
+        const ratio = sudsCount / MAX_SUDS;
+        count = Math.max(8, Math.round(count / (1 + ratio * 4)));
+
+        const frag = document.createDocumentFragment();
 
         for (let i = 0; i < count; i++) {
           const el = document.createElement("span");
@@ -319,9 +328,12 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
             `width:${size}px;height:${size}px;` +
             `animation-duration:${duration}s;animation-delay:${delay}s`;
 
-          setTimeout(() => el.remove(), (duration + delay + 1) * 1000);
-          container.appendChild(el);
+          el.addEventListener("animationend", () => { el.remove(); sudsCount--; });
+          frag.appendChild(el);
         }
+
+        sudsCount += count;
+        container.appendChild(frag);
       }
 
       document
