@@ -13,7 +13,6 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
     <title>crispy.beer</title>
     <meta name="description" content="Enjoy a crispy one." />
     <meta property="og:title" content="crispy.beer" />
@@ -92,7 +91,7 @@ const bubbles = Array.from({ length: 20 }, (_, i) => ({
       <p class="footer-text">Crispy since 2026</p>
     </footer>
 
-    <style>
+    <style is:global>
       * {
         margin: 0;
         padding: 0;
